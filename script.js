@@ -132,6 +132,7 @@ function loadCart() {
       <label><input type="radio" name="payment" value="COD" checked onclick="togglePaymentForm()"> Cash on Delivery</label>
       <label><input type="radio" name="payment" value="Credit Card" onclick="togglePaymentForm()"> Credit Card</label>
       <label><input type="radio" name="payment" value="Debit Card" onclick="togglePaymentForm()"> Debit Card</label>
+      <label><input type="radio" name="payment" value="Net Banking" onclick="togglePaymentForm()"> Net Banking</label>
     </div>
     <div id="payment-form"></div>
     <button class="placeorder-btn" onclick="placeOrder()">Place Order</button>
@@ -214,6 +215,48 @@ function togglePaymentForm() {
   `;
   return;
   }
+  else if (selected === "Net Banking") {
+  formDiv.innerHTML = `
+    <div class="payment-form">
+      <h3 class="payment-title">Net Banking Payment</h3>
+      
+      <div class="form-group">
+        <label for="bankSelect">Select Bank</label>
+        <select id="bankSelect" class="form-control">
+          <option value="">--Select Bank--</option>
+          <option value="Axis Bank">Axis Bank</option>
+          <option value="ICICI Bank">ICICI Bank</option>
+          <option value="SBI Bank">SBI Bank</option>
+        </select>
+      </div>
+
+      <div id="netBankDetails" style="display:none;">
+        <div class="form-group">
+          <label for="customerId">Customer ID</label>
+          <input id="customerId" type="text" class="form-control" placeholder="Customer ID" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="netPassword" type="password" class="form-control" placeholder="Password" />
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Show Customer ID and Password fields when a bank is selected
+  const bankSelect = document.getElementById('bankSelect');
+  const netBankDetails = document.getElementById('netBankDetails');
+
+  bankSelect.addEventListener('change', () => {
+    if (bankSelect.value) {
+      netBankDetails.style.display = 'block';
+    } else {
+      netBankDetails.style.display = 'none';
+    }
+  });
+
+  return;
+}
 }
 
 // --- PLACE ORDER ---
@@ -235,19 +278,33 @@ async function placeOrder() {
   }
 }
 
-// --- MAKE PAYMENT ---
 async function makePayment(payment, amount) {
-  const cardType = payment === "Credit Card" ? "credit" : "debit";
-  const cardNumber = document.getElementById("cardNumber")?.value?.trim() || "";
-  const cvv = document.getElementById("cvv")?.value?.trim() || "";
-  const expMonth = document.getElementById("expMonth")?.value?.trim() || "";
+  let body = { amount }; // common for all payment types
 
-  if (!cardNumber || !cvv || !expMonth) {
-    showMessage("Please fill all card details!", "warning");
-    return;
+  if (payment === "Credit Card" || payment === "Debit Card") {
+    const cardType = payment === "Credit Card" ? "credit" : "debit";
+    const cardNumber = document.getElementById("cardNumber")?.value?.trim() || "";
+    const cvv = document.getElementById("cvv")?.value?.trim() || "";
+    const expMonth = document.getElementById("expMonth")?.value?.trim() || "";
+
+    if (!cardNumber || !cvv || !expMonth) {
+      showMessage("Please fill all card details!", "warning");
+      return;
+    }
+    body = { ...body, cardType, cardNumber, cvv, expMonth };
+   } 
+   else if (payment === "Net Banking") {
+    const bankName = document.getElementById("bankSelect")?.value?.trim() || "";
+    const customerId = document.getElementById("customerId")?.value?.trim() || "";
+    const password = document.getElementById("netPassword")?.value?.trim() || "";
+
+    if (!bankName || !customerId || !password) {
+      showMessage("Please fill all net banking details!", "warning");
+      return;
+    }
+
+    body = { ...body, bankName, customerId, password };
   }
-
-  const body = { cardType, cardNumber, cvv, expMonth, amount };
 
   try {
     const res = await fetch("http://localhost:8989/payment", {
