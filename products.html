@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KMart - Products</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="checkLogin()">
+
+  <header class="navbar">
+    <h1>🛒KMart</h1>
+    <div class="nav-actions">
+      <input type="text" id="search" placeholder="Search Products..." onkeyup="searchProduct()" />
+      <a href="checkout.html" class="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="product-list" class="product-grid"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KMart - Checkout</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="loadCart()">
+
+  <header class="navbar">
+    <h1>KMart</h1>
+    <div class="nav-actions">
+      <a href="products.html">🏠 Home</a>
+      <span>🛒 Cart (<span id="cart-count">0</span>)</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="checkout-container">
+    <section id="cart-container" class="cart-section"></section>
+    <section id="order-section" class="order-section"></section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
