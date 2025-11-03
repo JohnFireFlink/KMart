@@ -3,23 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KMart - Cart</title>
+  <title data-i18n="cart_page_title">KMart - Cart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="loadCart()">
   <header class="navbar">
-    <h1>🏬KMart</h1>
+    <h1 data-i18n="siteName">🏬KMart</h1>
     <div class="nav-actions">
-      <a href="products.html">🏠 Home</a>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+      <a href="products.html" data-i18n="home_link">🏠 Home</a>
+      <button class="logout-btn" onclick="logout()" data-i18n="logout">Logout</button>
+
+      <!-- 🌍 Language Dropdown -->
+      <select id="languageSwitcher" class="lang-dropdown">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="nl">Nederlands</option>
+      </select>
     </div>
   </header>
 
   <main class="checkout-container">
+    <h2 data-i18n="your_cart">Your Cart</h2>
     <section id="cart-container" class="cart-section"></section>
     <section id="order-section" class="order-section"></section>
   </main>
 
+  <script src="js/lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

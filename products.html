@@ -3,24 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KMart - Products</title>
+  <title data-i18n="products_page_title">KMart - Products</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body onload="checkLogin()">
 
   <header class="navbar">
-    <h1>🏬KMart</h1>
+    <h1 data-i18n="siteName">🏬KMart</h1>
+
     <div class="nav-actions">
-      <input type="text" id="search" placeholder="Search Products..." onkeyup="searchProduct()" />
-      <a href="checkout.html" class="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+      <input type="text" id="search" data-i18n-placeholder="search_placeholder"
+        placeholder="Search Products..." onkeyup="searchProduct()" />
+      <a href="checkout.html" class="cart-link" data-i18n="cart_link">🛒 Cart (<span id="cart-count">0</span>)</a>
+      <button class="logout-btn" onclick="logout()" data-i18n="logout">Logout</button>
+
+      <!-- 🌍 Language Dropdown -->
+      <select id="languageSwitcher" class="lang-dropdown">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="nl">Nederlands</option>
+      </select>
     </div>
   </header>
 
   <main>
+    <h2 data-i18n="products_title">Products</h2>
     <div id="product-list" class="product-grid"></div>
   </main>
 
+  <script src="js/lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

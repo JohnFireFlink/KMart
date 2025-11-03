@@ -7,18 +7,32 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🏬KMart</h1>
+  <header class="login-header">
+    <h1 data-i18n="siteName">🏬KMart</h1>
+
+    <!-- 🌍 Language Dropdown (Top-right corner) -->
+    <select id="languageSwitcher" class="lang-dropdown">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="nl">Nederlands</option>
+    </select>
   </header>
 
   <main class="login-container">
-    <h2>Login to Continue</h2>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-    <p class="hint">Username: <b>Admin</b> and Password: <b>Admin</b></p>
+    <h2 data-i18n="loginTitle">Login to Continue</h2>
+
+    <input type="text" id="username" placeholder="Username" data-i18n-placeholder="username" />
+    <input type="password" id="password" placeholder="Password" data-i18n-placeholder="password" />
+
+    <button onclick="login()" data-i18n="loginBtn">Login</button>
+
+    <p class="hint" data-i18n="hint">
+      Username: <b>Admin</b> and Password: <b>Admin</b>
+    </p>
   </main>
 
+  <!-- ✅ Include translation script -->
+  <script src="js/lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
